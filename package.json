@@ -1,0 +1,23 @@
+{
+  "name": "puppeteer-sample",
+  "version": "1.0.0",
+  "description": "A simple puppeteer example.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/petitbonney/puppeteer-sample.git"
+  },
+  "author": "petitbonney",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/petitbonney/puppeteer-sample/issues"
+  },
+  "homepage": "https://github.com/petitbonney/puppeteer-sample#readme",
+  "dependencies": {
+    "puppeteer": "^19.4.1"
+  },
+  "type": "module"
+}
