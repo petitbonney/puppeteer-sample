@@ -1,7 +1,21 @@
 import puppeteer from "puppeteer";
+import express from "express";
 
-const run = async () => {
+let trends = [];
+const app = express();
+
+app.get("/", (req, res) => {
+  res.send(trends);
+});
+
+const port = process.env.PORT || 8080;
+app.listen(port, () => {
+  console.log("Listening on", port);
+});
+
+const getTrends = async () => {
   const browser = await puppeteer.launch({
+    executablePath: process.env.CHROMIUM_EXECUTABLE_PATH,
     headless: true,
     args: [
       "--no-sandbox",
@@ -35,7 +49,7 @@ const run = async () => {
 
   await page.waitForSelector("#grid-container > ytd-video-renderer");
   const videos = await page.$$("#grid-container > ytd-video-renderer");
-  const trends = [];
+  trends = [];
   for (const video of videos) {
     // Get title
     const titleTag = await video.$("#video-title > yt-formatted-string");
@@ -46,9 +60,9 @@ const run = async () => {
 
     trends.push({ channel, title });
   }
-
-  console.log(trends);
   browser.close();
+
+  setTimeout(getTrends, 1000 * 60 * 60);
 };
 
-run();
+getTrends();
